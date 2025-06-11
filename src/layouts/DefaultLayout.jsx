@@ -5,7 +5,7 @@ const DefaultLayout = () => {
     return (
         <>
             <Header />
-            <main>
+            <main className="container d-flex">
                 <Outlet />
             </main>
         </>
