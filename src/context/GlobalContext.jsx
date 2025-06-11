@@ -10,6 +10,8 @@ const GlobalProvider = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [searchCategory, setSearchCategory] = useState('')
+    const [isAsc, setIsAsc] = useState(true)
+
     const fetchMountainRoute = () => {
         axios
             .get(api_url)
@@ -33,13 +35,25 @@ const GlobalProvider = ({ children }) => {
     const debounceSearch = useCallback(debounce(setSearchQuery, 500), [])
 
     useEffect(() => {
-        const filtered = mountainRoute.filter(mountain =>
-            (searchQuery === '' || mountain.title.toLowerCase().includes(searchQuery.toLowerCase())) &&
-            (searchCategory === '' || mountain.category?.toLowerCase() === searchCategory.toLowerCase())
+        setSearchResult(
+            [...mountainRoute]
+                .filter(mountain =>
+                    (searchQuery === '' || (mountain.title ?? '').toLowerCase().includes(searchQuery.toLowerCase())) &&
+                    (searchCategory === '' || (mountain.category ?? '').toLowerCase() === searchCategory.toLowerCase()))
+
+                .sort((a, b) => {
+                    const titleA = (a.title ?? '');
+                    const titleB = (b.title ?? '');
+                    return isAsc
+                        ? titleA.localeCompare(titleB, 'it', { sensitivity: 'base' })
+                        : titleB.localeCompare(titleA, 'it', { sensitivity: 'base' });
+                })
         );
 
-        setSearchResult(filtered);
-    }, [searchQuery, searchCategory, mountainRoute]);
+
+    }, [searchQuery, searchCategory, mountainRoute, isAsc]);
+
+
 
     const value = {
         mountainRoute,
@@ -48,7 +62,9 @@ const GlobalProvider = ({ children }) => {
         searchResult,
         debounceSearch,
         searchCategory,
-        setSearchCategory
+        setSearchCategory,
+        isAsc,
+        setIsAsc,
 
     }
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useGlobalContext } from "../context/GlobalContext"
 const Header = () => {
 
-    const { debounceSearch, setSearchCategory } = useGlobalContext()
+    const { debounceSearch, setSearchCategory, setIsAsc, isAsc } = useGlobalContext()
     return (
         <header>
             <div>
@@ -22,6 +22,9 @@ const Header = () => {
                     <option value="escursionismo">Escursionismo</option>
                     <option value="alpinismo">Alpinismo</option>
                 </select>
+                <button onClick={() => setIsAsc(prev => !prev)}>
+                    {isAsc ? "A-Z" : "Z-A"}
+                </button>
             </div>
         </header>
     )

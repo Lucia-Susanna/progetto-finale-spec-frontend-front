@@ -1,20 +1,19 @@
 import { useGlobalContext } from "../context/GlobalContext"
 import { useEffect } from "react"
 import CardHome from "../components/CardHome"
-const Home = () => {
-    const { mountainRoute, fetchMountainRoute, searchResult, searchQuery, searchCategory } = useGlobalContext()
 
-    const dataToRender = searchQuery || searchCategory ? searchResult : mountainRoute
+const Home = () => {
+    const { fetchMountainRoute, searchResult } = useGlobalContext()
 
     useEffect(() => {
         fetchMountainRoute()
     }, [])
 
-
-
     return (
         <div className="row">
-            {dataToRender.map(mountain => <CardHome key={mountain.id} item={mountain} />)}
+            {searchResult.map(mountain => (
+                <CardHome key={mountain.id} item={mountain} />
+            ))}
         </div>
     )
 }
