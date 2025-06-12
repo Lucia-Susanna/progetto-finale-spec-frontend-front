@@ -1,5 +1,6 @@
 import { useGlobalContext } from "../context/GlobalContext"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 import CardHome from "../components/CardHome"
 
 const Home = () => {

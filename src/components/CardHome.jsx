@@ -1,12 +1,12 @@
-
+import { Link } from "react-router-dom"
 const CardHome = ({ item }) => {
-    const { title, category } = item
+    const { title, category, id } = item
     return (
-        <div className="card col-5 m-2">
+        <Link to={`/${id}`} className="card col-5 m-2">
             <h3>{title}</h3>
             <p>{category}</p>
-
-        </div>
+            <button>aggiungi al comparatore</button>
+        </Link>
     )
 }
 

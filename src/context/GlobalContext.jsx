@@ -11,7 +11,6 @@ const GlobalProvider = ({ children }) => {
     const [searchResult, setSearchResult] = useState([])
     const [searchCategory, setSearchCategory] = useState('')
     const [isAsc, setIsAsc] = useState(true)
-
     const fetchMountainRoute = () => {
         axios
             .get(api_url)
@@ -20,7 +19,6 @@ const GlobalProvider = ({ children }) => {
             })
             .catch((error) => console.error("Errore nel fetch:", error));
     }
-
 
     function debounce(callback, delay) {
         let timer
