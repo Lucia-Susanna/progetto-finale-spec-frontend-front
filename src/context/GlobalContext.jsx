@@ -11,6 +11,12 @@ const GlobalProvider = ({ children }) => {
     const [searchResult, setSearchResult] = useState([])
     const [searchCategory, setSearchCategory] = useState('')
     const [isAsc, setIsAsc] = useState(true)
+    const [toCompare, setToCompare] = useState(() => {
+        // Recupera da localStorage se presente, altrimenti array vuoto
+        const stored = localStorage.getItem('toCompare');
+        return stored ? JSON.parse(stored) : [];
+    })
+
     const fetchMountainRoute = () => {
         axios
             .get(api_url)
@@ -52,6 +58,14 @@ const GlobalProvider = ({ children }) => {
     }, [searchQuery, searchCategory, mountainRoute, isAsc]);
 
 
+    const compareData = (item) => {
+        setToCompare([...toCompare, item])
+    }
+
+    useEffect(() => {
+        localStorage.setItem('toCompare', JSON.stringify(toCompare));
+    }, [toCompare]);
+
 
     const value = {
         mountainRoute,
@@ -63,6 +77,9 @@ const GlobalProvider = ({ children }) => {
         setSearchCategory,
         isAsc,
         setIsAsc,
+        setToCompare,
+        toCompare,
+        compareData
 
     }
 
