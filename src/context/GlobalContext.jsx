@@ -68,8 +68,15 @@ const GlobalProvider = ({ children }) => {
 
     }, [searchQuery, searchCategory, mountainRoute, isAsc]);
 
-    const compareData = (item) => {
-        setToCompare([...toCompare, item])
+    const compareData = async (item) => {
+        try {
+            const res = await axios.get(`${api_url}/${item.id}`);
+            // Assumendo che il backend restituisca { mountainroute: { ... } }
+            const data = res.data.mountainroute || res.data;
+            setToCompare(prev => [...prev, data]);
+        } catch (error) {
+            console.error("Errore nel fetch per comparazione:", error);
+        }
     }
 
     const removeFromCompare = (id) => {

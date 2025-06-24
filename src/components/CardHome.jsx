@@ -8,6 +8,14 @@ const CardHome = ({ item }) => {
     const isSelected = toCompare.some(el => el.id === item.id)
     const isFav = isFavourite(item.id);
 
+    const handleCompare = async () => {
+        if (isSelected) {
+            removeFromCompare(item.id)
+        } else {
+            await compareData(item)
+        }
+    }
+
     return (
         <div className="col-md-6 text-center">
             <div className="card">
@@ -18,7 +26,7 @@ const CardHome = ({ item }) => {
                 <p className="category">{category}</p>
                 <button
                     className={isSelected ? "selected-btn" : ""}
-                    onClick={() => isSelected ? removeFromCompare(item.id) : compareData(item)}
+                    onClick={handleCompare}
                     disabled={!isSelected && toCompare.length === 2}
                 >
                     {isSelected ? "Rimuovi dal comparatore" : "Aggiungi al comparatore"}

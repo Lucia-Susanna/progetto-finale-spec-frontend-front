@@ -5,7 +5,6 @@ import { useGlobalContext } from "../context/GlobalContext"
 const Detail = () => {
     const { fetchMountainRouteById, selectedMountainRoute, addFavourite, removeFavourite, isFavourite } = useGlobalContext()
     const { id } = useParams()
-    const isFav = isFavourite(selectedMountainRoute.id);
     useEffect(() => {
         fetchMountainRouteById(id)
     }, [id])
@@ -17,6 +16,7 @@ const Detail = () => {
             </div>
         )
     }
+    const isFav = isFavourite(selectedMountainRoute.id);
 
     return (
         <div className="container">
