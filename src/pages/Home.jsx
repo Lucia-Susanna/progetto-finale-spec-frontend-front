@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import CardHome from "../components/CardHome"
 
 const Home = () => {
-    const { fetchMountainRoute, searchResult, debounceSearch, setSearchCategory, setIsAsc, isAsc, toCompare } = useGlobalContext()
+    const { fetchMountainRoute, searchResult, debounceSearch, setSearchCategory, setIsAsc, isAsc, toCompare, removeFromCompare } = useGlobalContext()
 
     useEffect(() => {
         fetchMountainRoute()
@@ -45,12 +45,12 @@ const Home = () => {
                     <div className="d-flex">
                         <p>{toCompare.length === 2 ? 'Confronta i seguenti itinerari: ' : 'Seleziona due itinerari per confrontarli'} </p>
                         <ul className="d-flex">
-                            {toCompare?.map(item => (<li key={item.id} className="me-2">{item.title}</li>))}
+                            {toCompare?.map(item => (<li key={item.id} className="me-2">{item.title} <button onClick={() => removeFromCompare(item.id)}> <i className="fa-solid fa-trash"></i></button></li>))}
                         </ul>
                     </div>
 
                     <div className="d-flex justify-content-center my-3">
-                        {toCompare.length === 2 && <Link to='/compare' className="button-comparatore"> vai al comparatore</Link>}
+                        {toCompare.length === 2 && <Link to='/compare' className="button-comparatore">Vai al comparatore</Link>}
                     </div>
                 </div>
 

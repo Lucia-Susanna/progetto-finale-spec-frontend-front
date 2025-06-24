@@ -18,7 +18,7 @@ const Preferiti = () => {
                                 <span className="fav-category">{item.category}</span>
                             </div>
                             <button className="fav-remove-btn" title="Rimuovi dai preferiti" onClick={() => removeFavourite(item.id)}>
-                                <i className="fa-solid fa-xmark"></i>
+                                <i className="fa-solid fa-trash"></i>
                             </button>
                         </li>
                     ))}

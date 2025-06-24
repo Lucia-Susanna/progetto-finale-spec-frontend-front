@@ -25,8 +25,8 @@ header {
 }
 
 header h1 {
-  color: #fff;
-  font-size: 2rem;
+  color: #efda1b;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-right: 1em;
 }
@@ -35,7 +35,7 @@ header a {
   margin-left: 10px;
   color: antiquewhite;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1.4em;
 }
 
 header a:hover {
@@ -205,7 +205,7 @@ main {
   background: none;
   border: none;
   color: #e74c3c;
-  font-size: 1.7em;
+  font-size: 1.5em;
   cursor: pointer;
   position: absolute;
   top: 1em;
@@ -222,12 +222,13 @@ main {
 
 .card h3,
 .card-title {
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #2d2d2d;
   margin-bottom: 0.3em;
   line-height: 1.2;
   margin-top: 0.5em;
+  width: 95%;
 }
 
 .card .category,
@@ -272,7 +273,7 @@ button:disabled,
 .card button:disabled {
   background-color: #ccc !important;
   color: #666 !important;
-  cursor: not-allowed;
+
 }
 
 a {
@@ -324,6 +325,31 @@ h3 {
   box-shadow: 0 2px 12px rgba(105, 169, 123, 0.07);
 }
 
+.compare button {
+  background: #f3f3f3;
+  color: #888;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95em;
+  cursor: pointer;
+  margin-left: 0.4em;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+  vertical-align: middle;
+  box-shadow: none;
+}
+
+.compare button:hover {
+  background: #e0e0e0;
+  color: #444;
+  border-color: #888;
+  transform: scale(1.08);
+}
+
 .compare-table {
   width: 100%;
   border-collapse: separate;
@@ -342,6 +368,36 @@ h3 {
   border-bottom: 2px solid #69a97b;
   font-size: 1.08em;
   text-align: left;
+  position: relative;
+  white-space: nowrap;
+}
+
+.compare-th span {
+  vertical-align: middle;
+}
+
+.compare-remove-btn {
+  background: #fff;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 50%;
+  width: 1.9em;
+  height: 1.9em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-left: 0.7em;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+  vertical-align: middle;
+}
+
+.compare-remove-btn:hover {
+  background: #e74c3c;
+  color: #fff;
+  border-color: #e74c3c;
+  transform: scale(1.1);
 }
 
 .compare-table-header th:first-child {
@@ -380,15 +436,6 @@ h3 {
 .compare-table-row:last-child .compare-label,
 .compare-table-row:last-child .compare-value {
   border-bottom: none;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  background: #eee;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ccc;
 }
 
 .detail-loading {

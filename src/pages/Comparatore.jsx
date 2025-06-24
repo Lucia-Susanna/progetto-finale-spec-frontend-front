@@ -1,4 +1,6 @@
+import { truckCouch } from "fontawesome";
 import { useGlobalContext } from "../context/GlobalContext"
+import { Link } from "react-router-dom";
 
 const LABELS = {
     title: "Titolo",
@@ -29,7 +31,7 @@ const FIELDS = [
 ];
 
 const Compare = () => {
-    const { toCompare } = useGlobalContext();
+    const { toCompare, removeFromCompare } = useGlobalContext();
 
     if (!toCompare || toCompare.length < 2) {
         return (
@@ -48,8 +50,26 @@ const Compare = () => {
                     <thead>
                         <tr className="compare-table-header">
                             <th className="compare-th">Caratteristica</th>
-                            <th className="compare-th">{toCompare[0].title}</th>
-                            <th className="compare-th">{toCompare[1].title}</th>
+                            <th className="compare-th">
+                                <Link to={`/${toCompare[0].id}`}>{toCompare[0].title}</Link>
+                                <button
+                                    className="compare-remove-btn"
+                                    title="Rimuovi dal comparatore"
+                                    onClick={() => removeFromCompare(toCompare[0].id)}
+                                >
+                                    <i className="fa-solid fa-trash"></i>
+                                </button>
+                            </th>
+                            <th className="compare-th">
+                                <Link to={`/${toCompare[1].id}`}>{toCompare[1].title}</Link>
+                                <button
+                                    className="compare-remove-btn"
+                                    title="Rimuovi dal comparatore"
+                                    onClick={() => removeFromCompare(toCompare[1].id)}
+                                >
+                                    <i className="fa-solid fa-trash"></i>
+                                </button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
