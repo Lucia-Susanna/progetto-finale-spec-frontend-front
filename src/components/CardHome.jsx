@@ -9,19 +9,21 @@ const CardHome = ({ item }) => {
     const isFav = isFavourite(item.id);
 
     return (
-        <div className="card col-5 m-2">
-            <button className="favourite" onClick={() => isFav ? removeFavourite(item.id) : addFavourite(item)}>
-                {isFav ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
-            </button>
-            <Link to={`/${id}`}><h3>{title}</h3></Link>
-            <p>{category}</p>
-            <button
-                className={isSelected ? "selected-btn" : ""}
-                onClick={() => isSelected ? removeFromCompare(item.id) : compareData(item)}
-                disabled={!isSelected && toCompare.length === 2}
-            >
-                {isSelected ? "Rimuovi dal comparatore" : "Aggiungi al comparatore"}
-            </button>
+        <div className="col-md-6 text-center">
+            <div className="card">
+                <button className="favourite" onClick={() => isFav ? removeFavourite(item.id) : addFavourite(item)}>
+                    {isFav ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
+                </button>
+                <Link to={`/${id}`}><h3>{title}</h3></Link>
+                <p className="category">{category}</p>
+                <button
+                    className={isSelected ? "selected-btn" : ""}
+                    onClick={() => isSelected ? removeFromCompare(item.id) : compareData(item)}
+                    disabled={!isSelected && toCompare.length === 2}
+                >
+                    {isSelected ? "Rimuovi dal comparatore" : "Aggiungi al comparatore"}
+                </button>
+            </div>
         </div>
     )
 }

@@ -1,31 +1,75 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 const Detail = () => {
-    const { mountainRoute, fetchMountainRoute } = useGlobalContext()
+    const { fetchMountainRouteById, selectedMountainRoute, addFavourite, removeFavourite, isFavourite } = useGlobalContext()
     const { id } = useParams()
-    const [selectedMountainRoute, setSelectedMountainRoute] = useState(null)
-
+    const isFav = isFavourite(selectedMountainRoute.id);
     useEffect(() => {
-        if (mountainRoute.length === 0) {
-            fetchMountainRoute()
-        }
-    }, [])
+        fetchMountainRouteById(id)
+    }, [id])
 
-    useEffect(() => {
-        if (mountainRoute.length > 0) {
-            const mountainRouteId = mountainRoute.find(m => String(m.id) === id)
-            setSelectedMountainRoute(mountainRouteId)
-        }
-    }, [id, mountainRoute])
-
-    if (!selectedMountainRoute) return <p>Caricamento o rotta non trovata...</p>
+    if (!selectedMountainRoute) {
+        return (
+            <div className="container detail-loading">
+                <div>Caricamento...</div>
+            </div>
+        )
+    }
 
     return (
-        <div>
-            <h1>{selectedMountainRoute.title}</h1>
-            <p>ID: {selectedMountainRoute.id}</p>
+        <div className="container">
+            <div className="card detail-card">
+                <button className="favourite" onClick={() => isFav ? removeFavourite(selectedMountainRoute.id) : addFavourite(selectedMountainRoute)}>
+                    {isFav ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
+                </button>
+                <h2 className="card-title">{selectedMountainRoute.title}</h2>
+                <div className="card-category">{selectedMountainRoute.category}</div>
+
+                <div className="detail-grid">
+                    <div>
+                        <span className="detail-label">Difficoltà:</span>
+                        <span className="detail-value">{selectedMountainRoute.difficulty}</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Regione:</span>
+                        <span className="detail-value">{selectedMountainRoute.region}</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Altitudine:</span>
+                        <span className="detail-value">{selectedMountainRoute.altitude} m</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Lunghezza:</span>
+                        <span className="detail-value">{selectedMountainRoute.lengthKm} km</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Dislivello:</span>
+                        <span className="detail-value">{selectedMountainRoute.elevationGain} m</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Durata:</span>
+                        <span className="detail-value">{selectedMountainRoute.duration}</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Stagione migliore:</span>
+                        <span className="detail-value">{selectedMountainRoute.bestSeason}</span>
+                    </div>
+                    <div>
+                        <span className="detail-label">Attrezzatura:</span>
+                        <span className="detail-value">
+                            {Array.isArray(selectedMountainRoute.equipment) && selectedMountainRoute.equipment.length > 0
+                                ? selectedMountainRoute.equipment.join(", ")
+                                : "Nessuna attrezzatura"}
+                        </span>
+                    </div>
+                </div>
+                <div className="detail-description">
+                    <span className="detail-label detail-description-label">Descrizione:</span>
+                    <p>{selectedMountainRoute.description}</p>
+                </div>
+            </div>
         </div>
     )
 }

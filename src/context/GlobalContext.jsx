@@ -7,6 +7,7 @@ const GlobalProvider = ({ children }) => {
     const api_url = import.meta.env.VITE_API_URL
 
     const [mountainRoute, setMountainRoute] = useState([])
+    const [selectedMountainRoute, setSelectedMountainRoute] = useState(null)
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [searchCategory, setSearchCategory] = useState('')
@@ -14,12 +15,26 @@ const GlobalProvider = ({ children }) => {
     const [toCompare, setToCompare] = useState([])
     const [favourite, setFavourite] = useState([])
     const fetchMountainRoute = () => {
-        axios
-            .get(api_url)
-            .then((res) => {
+
+        axios.get(api_url)
+            .then(res => {
                 setMountainRoute(res.data)
             })
-            .catch((error) => console.error("Errore nel fetch:", error));
+            .catch(error => {
+                console.error("Errore nel fetch:", error)
+            })
+    }
+
+    const fetchMountainRouteById = (id) => {
+        axios.get(`${api_url}/${id}`)
+            .then(res => {
+
+                setSelectedMountainRoute(res.data.mountainroute)
+
+            })
+            .catch(error => {
+                console.error("Errore nel fetch:", error)
+            })
     }
 
     function debounce(callback, delay) {
@@ -75,6 +90,7 @@ const GlobalProvider = ({ children }) => {
     const value = {
         mountainRoute,
         fetchMountainRoute,
+        fetchMountainRouteById,
         searchQuery,
         searchResult,
         debounceSearch,
@@ -89,8 +105,8 @@ const GlobalProvider = ({ children }) => {
         favourite,
         addFavourite,
         removeFavourite,
-        isFavourite
-
+        isFavourite,
+        selectedMountainRoute
     }
 
 
