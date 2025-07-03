@@ -82,8 +82,8 @@ const GlobalProvider = ({ children }) => {
     const compareData = async (item) => {
         try {
             const res = await axios.get(`${api_url}/${item.id}`);
-            // Assumendo che il backend restituisca { mountainroute: { ... } }
-            const data = res.data.mountainroute || res.data;
+
+            const data = res.data.mountainroute
             setToCompare(prev => [...prev, data]);
         } catch (error) {
             console.error("Errore nel fetch per comparazione:", error);
