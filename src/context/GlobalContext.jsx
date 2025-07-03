@@ -12,8 +12,15 @@ const GlobalProvider = ({ children }) => {
     const [searchResult, setSearchResult] = useState([])
     const [searchCategory, setSearchCategory] = useState('')
     const [isAsc, setIsAsc] = useState(true)
-    const [toCompare, setToCompare] = useState([])
-    const [favourite, setFavourite] = useState([])
+    const [toCompare, setToCompare] = useState(() => {
+        const stored = localStorage.getItem("toCompare");
+        return stored ? JSON.parse(stored) : [];
+    });
+    const [favourite, setFavourite] = useState(() => {
+        const stored = localStorage.getItem("favourite");
+        return stored ? JSON.parse(stored) : [];
+    });
+
     const fetchMountainRoute = () => {
 
         axios.get(api_url)
@@ -68,6 +75,10 @@ const GlobalProvider = ({ children }) => {
 
     }, [searchQuery, searchCategory, mountainRoute, isAsc]);
 
+    useEffect(() => {
+        localStorage.setItem("toCompare", JSON.stringify(toCompare));
+    }, [toCompare]);
+
     const compareData = async (item) => {
         try {
             const res = await axios.get(`${api_url}/${item.id}`);
@@ -82,6 +93,10 @@ const GlobalProvider = ({ children }) => {
     const removeFromCompare = (id) => {
         setToCompare(prev => prev.filter(item => item.id !== id))
     }
+
+    useEffect(() => {
+        localStorage.setItem("favourite", JSON.stringify(favourite));
+    }, [favourite]);
 
     const isFavourite = (id) => {
         return favourite.some(item => item.id === id);

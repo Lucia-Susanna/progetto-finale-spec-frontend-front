@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 const Detail = () => {
     const { fetchMountainRouteById, selectedMountainRoute, addFavourite, removeFavourite, isFavourite } = useGlobalContext()
     const { id } = useParams()
+    const navigate = useNavigate()
+
     useEffect(() => {
         fetchMountainRouteById(id)
     }, [id])
@@ -19,7 +21,7 @@ const Detail = () => {
     const isFav = isFavourite(selectedMountainRoute.id);
 
     return (
-        <div className="container">
+        <div className="container" style={{ position: "relative" }}>
             <div className="card detail-card">
                 <button className="favourite" onClick={() => isFav ? removeFavourite(selectedMountainRoute.id) : addFavourite(selectedMountainRoute)}>
                     {isFav ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
@@ -70,6 +72,13 @@ const Detail = () => {
                     <p>{selectedMountainRoute.description}</p>
                 </div>
             </div>
+            <button
+                className="back-btn"
+                onClick={() => navigate(-1)}
+                title="Torna indietro"
+            >
+                <i className="fa-solid fa-arrow-left"></i>
+            </button>
         </div>
     )
 }

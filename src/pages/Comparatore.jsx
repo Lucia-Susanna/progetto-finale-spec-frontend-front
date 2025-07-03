@@ -1,6 +1,6 @@
 import { truckCouch } from "fontawesome";
 import { useGlobalContext } from "../context/GlobalContext"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LABELS = {
     title: "Titolo",
@@ -32,6 +32,7 @@ const FIELDS = [
 
 const Compare = () => {
     const { toCompare, removeFromCompare } = useGlobalContext();
+    const navigate = useNavigate();
 
     if (!toCompare || toCompare.length < 2) {
         return (
@@ -44,7 +45,7 @@ const Compare = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container" style={{ position: "relative" }}>
             <div className="compare-table-wrapper">
                 <table className="compare-table">
                     <thead>
@@ -95,6 +96,13 @@ const Compare = () => {
                     </tbody>
                 </table>
             </div>
+            <button
+                className="back-btn"
+                onClick={() => navigate(-1)}
+                title="Torna indietro"
+            >
+                <i className="fa-solid fa-arrow-left"></i>
+            </button>
         </div>
     );
 };
