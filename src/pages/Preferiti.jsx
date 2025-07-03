@@ -6,7 +6,7 @@ const Favourites = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="favourites-container" style={{ position: "relative" }}>
+        <div className="favourites-container relative" >
             <h2 className="favourites-title">I tuoi preferiti</h2>
             {favourite.length === 0 ? (
                 <p>Nessun itinerario nei preferiti.</p>

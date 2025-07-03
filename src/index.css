@@ -711,6 +711,10 @@ h3 {
   transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
 }
 
+.relative {
+  position: relative;
+}
+
 .back-btn:hover {
   background: #69a97b;
   color: #fff;

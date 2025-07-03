@@ -21,7 +21,7 @@ const Detail = () => {
     const isFav = isFavourite(selectedMountainRoute.id);
 
     return (
-        <div className="container" style={{ position: "relative" }}>
+        <div className="container relative">
             <div className="card detail-card">
                 <button className="favourite" onClick={() => isFav ? removeFavourite(selectedMountainRoute.id) : addFavourite(selectedMountainRoute)}>
                     {isFav ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}

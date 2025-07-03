@@ -36,16 +36,23 @@ const Compare = () => {
 
     if (!toCompare || toCompare.length < 2) {
         return (
-            <div className="container">
+            <div className="container relative">
                 <div className="compare-table-wrapper">
                     <p>Seleziona due itinerari per confrontarli.</p>
                 </div>
+                <button
+                    className="back-btn"
+                    onClick={() => navigate(-1)}
+                    title="Torna indietro"
+                >
+                    <i className="fa-solid fa-arrow-left"></i>
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="container" style={{ position: "relative" }}>
+        <div className="container relative">
             <div className="compare-table-wrapper">
                 <table className="compare-table">
                     <thead>
